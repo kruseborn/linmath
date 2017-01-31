@@ -1,6 +1,7 @@
 #include "linmath.h"
 #include <cstring>
 
+namespace lm {
 template<class T>
 bool tmat4<T>::operator==(tmat4<T> const & m) const {
 	for (int i = 0; i < 4; i++) {
@@ -31,8 +32,8 @@ tmat4<T> tmat4<T>::operator=(tmat4<T> const & m) {
 template<class T>
 tmat4<T> tmat4<T>::operator+(tmat4<T> const & m) const {
 	tmat4<T> res;
-	for (int i = 0; i<4; ++i)
-		for (int j = 0; j<4; ++j)
+	for (int i = 0; i < 4; ++i)
+		for (int j = 0; j < 4; ++j)
 			res[i][j] = arr[i][j] + m.arr[i][j];
 	return res;
 }
@@ -40,8 +41,8 @@ tmat4<T> tmat4<T>::operator+(tmat4<T> const & m) const {
 template<class T>
 tmat4<T> tmat4<T>::operator-(tmat4<T> const & m) const {
 	tmat4<T> res;
-	for (int i = 0; i<4; ++i)
-		for (int j = 0; j<4; ++j)
+	for (int i = 0; i < 4; ++i)
+		for (int j = 0; j < 4; ++j)
 			res[i][j] = arr[i][j] - m.arr[i][j];
 	return res;
 }
@@ -50,12 +51,12 @@ template<class T>
 tmat4<T> tmat4<T>::operator*(tmat4<T> const & m) const {
 	tmat4<T> res;
 	int k, r, c;
-	for (c = 0; c<4; ++c) 
-		for (r = 0; r<4; ++r) {
+	for (c = 0; c < 4; ++c)
+		for (r = 0; r < 4; ++r) {
 			res[c][r] = 0.0f;
-				for (k = 0; k<4; ++k)
-					res[c][r] += arr[k][r] * m[c][k];
-	}
+			for (k = 0; k < 4; ++k)
+				res[c][r] += arr[k][r] * m[c][k];
+		}
 	return res;
 }
 
@@ -73,9 +74,9 @@ tmat4<T> tmat4<T>::operator*(T s) const {
 template<class T>
 tvec4<T> tmat4<T>::operator*(tvec4<T> const & v) const {
 	tvec4<T> r;
-	for (int j = 0; j<4; ++j) {
+	for (int j = 0; j < 4; ++j) {
 		r[j] = 0.f;
-		for (int i = 0; i<4; ++i)
+		for (int i = 0; i < 4; ++i)
 			r[j] += arr[i][j] * v[i];
 	}
 	return r;
@@ -97,8 +98,9 @@ tmat4<T> & tmat4<T>::operator*=(tmat4<T> const & m) {
 }
 template<class T>
 tmat4<T> & tmat4<T>::operator*=(T scalar) {
-	*this =  *this * scalar;
+	*this = *this * scalar;
 	return *this;
 }
 
 template struct tmat4<float>;
+}

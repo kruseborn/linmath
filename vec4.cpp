@@ -1,5 +1,7 @@
 #include "linmath.h"
 
+namespace lm {
+
 template<class T>
 T& tvec4<T>::operator[](int i) {
 	return values[i];
@@ -79,6 +81,14 @@ tvec4<T> & tvec4<T>::operator*=(T s) {
 	values[4] *= s;
 	return *this;
 }
+template<class T>
+tvec4<T> & tvec4<T>::operator/=(T s) {
+	values[0] /= s;
+	values[1] /= s;
+	values[2] /= s;
+	values[4] /= s;
+	return *this;
+}
 
 template<class T>
 tvec4<T> tvec4<T>::operator+(tvec4<T> const & v) const {
@@ -112,10 +122,10 @@ tvec4<T> tvec4<T>::operator+(T s) const {
 template<class T>
 tvec4<T> tvec4<T>::operator-(T s) const {
 	return tvec4{
-		values[0] -s,
-		values[1] -s,
-		values[2] -s,
-		values[3] -s
+		values[0] - s,
+		values[1] - s,
+		values[2] - s,
+		values[3] - s
 	};
 }
 template<class T>
@@ -127,5 +137,15 @@ tvec4<T> tvec4<T>::operator*(T s) const {
 		values[3] * s
 	};
 }
+template<class T>
+tvec4<T> tvec4<T>::operator/(T s) const {
+	return tvec4{
+		values[0] / s,
+		values[1] / s,
+		values[2] / s,
+		values[3] / s
+	};
+}
 
 template struct tvec4<float>;
+}
