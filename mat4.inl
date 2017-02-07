@@ -1,8 +1,9 @@
-#include "linmath.h"
+//#include "linmath.h"
 #include <cstring>
 
 namespace lm {
-template<class T>
+
+template<typename T>
 bool tmat4<T>::operator==(tmat4<T> const & m) const {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -13,23 +14,23 @@ bool tmat4<T>::operator==(tmat4<T> const & m) const {
 	return true;
 }
 
-template<class T>
+template<typename T>
 tvec4<T>& tmat4<T>::operator[](int i) {
 	return values[i];
 }
 
-template<class T>
+template<typename T>
 tvec4<T> const & tmat4<T>::operator[](int i) const {
 	return values[i];
 }
 
-template<class T>
+template<typename T>
 tmat4<T> tmat4<T>::operator=(tmat4<T> const & m) {
 	memcpy(&values, &m.values, 16 * sizeof(T));
 	return *this;
 }
 
-template<class T>
+template<typename T>
 tmat4<T> tmat4<T>::operator+(tmat4<T> const & m) const {
 	tmat4<T> res;
 	for (int i = 0; i < 4; ++i)
@@ -38,7 +39,7 @@ tmat4<T> tmat4<T>::operator+(tmat4<T> const & m) const {
 	return res;
 }
 
-template<class T>
+template<typename T>
 tmat4<T> tmat4<T>::operator-(tmat4<T> const & m) const {
 	tmat4<T> res;
 	for (int i = 0; i < 4; ++i)
@@ -47,7 +48,7 @@ tmat4<T> tmat4<T>::operator-(tmat4<T> const & m) const {
 	return res;
 }
 
-template<class T>
+template<typename T>
 tmat4<T> tmat4<T>::operator*(tmat4<T> const & m) const {
 	tmat4<T> res;
 	int k, r, c;
@@ -61,7 +62,8 @@ tmat4<T> tmat4<T>::operator*(tmat4<T> const & m) const {
 }
 
 //scalar
-template<class T>
+
+template<typename T>
 tmat4<T> tmat4<T>::operator*(T s) const {
 	tmat4<T> res;
 	res.values[0] = values[0] * s;
@@ -71,7 +73,7 @@ tmat4<T> tmat4<T>::operator*(T s) const {
 	return res;
 }
 
-template<class T>
+template<typename T>
 tvec4<T> tmat4<T>::operator*(tvec4<T> const & v) const {
 	tvec4<T> r;
 	for (int j = 0; j < 4; ++j) {
@@ -81,26 +83,29 @@ tvec4<T> tmat4<T>::operator*(tvec4<T> const & v) const {
 	}
 	return r;
 }
-template<class T>
+
+template<typename T>
 tmat4<T> & tmat4<T>::operator+=(tmat4<T> const & m) {
 	*this = *this + m;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tmat4<T> & tmat4<T>::operator-=(tmat4<T> const & m) {
 	*this = *this - m;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tmat4<T> & tmat4<T>::operator*=(tmat4<T> const & m) {
 	*this = *this * m;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tmat4<T> & tmat4<T>::operator*=(T scalar) {
 	*this = *this * scalar;
 	return *this;
 }
 
-template struct tmat4<float>;
 }

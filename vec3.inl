@@ -1,25 +1,25 @@
-#include "linmath.h"
-
+//#include "linmath.h"
 namespace lm {
 
-template<class T>
+template<typename T>
 T& tvec3<T>::operator[](int i) {
 	return values[i];
 }
 
-template<class T>
+template<typename T>
 T const & tvec3<T>::operator[](int i) const {
 	return values[i];
 }
 
-template<class T>
+template<typename T>
 bool tvec3<T>::operator==(tvec3<T> const & v) const {
 	return
 		values[0] == v[0] &&
 		values[1] == v[1] &&
 		values[2] == v[2];
 }
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator=(tvec3<T> const & v) {
 	values[0] = v[0];
 	values[1] = v[1];
@@ -27,7 +27,7 @@ tvec3<T> & tvec3<T>::operator=(tvec3<T> const & v) {
 	return *this;
 }
 
-template<class T>
+template<typename T>
 tvec3<T> & tvec3<T>::operator+=(tvec3<T> const & v) {
 	values[0] += v[0];
 	values[1] += v[1];
@@ -35,7 +35,7 @@ tvec3<T> & tvec3<T>::operator+=(tvec3<T> const & v) {
 	return *this;
 }
 
-template<class T>
+template<typename T>
 tvec3<T> & tvec3<T>::operator-=(tvec3<T> const & v) {
 	values[0] -= v[0];
 	values[1] -= v[1];
@@ -43,37 +43,41 @@ tvec3<T> & tvec3<T>::operator-=(tvec3<T> const & v) {
 	return *this;
 }
 
-
 //scalar
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator=(T s) {
 	values[0] = s;
 	values[1] = s;
 	values[2] = s;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator+=(T s) {
 	values[0] += s;
 	values[1] += s;
 	values[2] += s;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator-=(T s) {
 	values[0] -= s;
 	values[1] -= s;
 	values[2] -= s;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator*=(T s) {
 	values[0] *= s;
 	values[1] *= s;
 	values[2] *= s;
 	return *this;
 }
-template<class T>
+
+template<typename T>
 tvec3<T> & tvec3<T>::operator/=(T s) {
 	values[0] /= s;
 	values[1] /= s;
@@ -81,57 +85,57 @@ tvec3<T> & tvec3<T>::operator/=(T s) {
 	return *this;
 }
 
-template<class T>
+template<typename T>
 tvec3<T> tvec3<T>::operator+(tvec3<T> const & v) const {
-	return tvec3{
+	return tvec3<T>{
 		values[0] + v[0],
 		values[1] + v[1],
 		values[2] + v[2]
 	};
 }
 
-template<class T>
+template<typename T>
 tvec3<T> tvec3<T>::operator-(tvec3<T> const & v) const {
-	return tvec3{
-		values[0] + v[0],
-		values[1] + v[1],
-		values[2] + v[2]
+	return tvec3<T>{
+		values[0] - v[0],
+		values[1] - v[1],
+		values[2] - v[2]
 	};
 }
 
-template<class T>
+template<typename T>
 tvec3<T> tvec3<T>::operator+(T s) const {
-	return tvec3{
+	return tvec3<T>{
 		values[0] + s,
 		values[1] + s,
 		values[2] + s
 	};
 }
-template<class T>
+
+template<typename T>
 tvec3<T> tvec3<T>::operator-(T s) const {
-	return tvec3{
+	return tvec3<T>{
 		values[0] - s,
 		values[1] - s,
 		values[2] - s
 	};
 }
-template<class T>
+
+template<typename T>
 tvec3<T> tvec3<T>::operator*(T s) const {
-	return tvec3{
+	return tvec3<T>{
 		values[0] * s,
 		values[1] * s,
 		values[2] * s
 	};
 }
 
-template<class T>
+template<typename T>
 tvec3<T> tvec3<T>::operator/(T s) const {
-	return tvec3{
+	return tvec3<T>{
 		values[0] / s,
 		values[1] / s,
 		values[2] / s,
 	};
 }
-
-template struct tvec3<float>;
 }
