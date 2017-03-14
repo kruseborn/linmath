@@ -1,4 +1,3 @@
-//#include "linmath.h"
 #include <cstring>
 
 namespace lm {
@@ -60,8 +59,6 @@ tmat4<T> tmat4<T>::operator*(tmat4<T> const & m) const {
 		}
 	return res;
 }
-
-//scalar
 
 template<typename T>
 tmat4<T> tmat4<T>::operator*(T s) const {

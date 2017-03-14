@@ -67,8 +67,7 @@ template<typename T> tquat<T> rotateX(tquat<T> const &q, T rad);
 template<typename T> tquat<T> rotateY(tquat<T> const &q, T rad);
 template<typename T> tquat<T> rotateZ(tquat<T> const &q, T rad);
 template<typename T> tmat4<T> toMatrix(tquat<T> const &q);
-
-
+template<typename T> T radians(T degrees);
 
 }
 #include "linmath_transform.inl"

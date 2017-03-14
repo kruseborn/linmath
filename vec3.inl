@@ -1,4 +1,3 @@
-//#include "linmath.h"
 namespace lm {
 
 template<typename T>

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 namespace lm {
 	template<typename T>
 	struct tvec2 {
@@ -25,11 +27,9 @@ namespace lm {
 		tvec2 & operator*=(T scalar);
 		tvec2 & operator/=(T scalar);
 
-
 		union {
 			struct { T x, y; };
 			struct { T r, g; };
-			struct { T s, t; };
 			T values[2];
 		};
 	};
@@ -62,7 +62,6 @@ namespace lm {
 		union {
 			struct { T x, y, z; };
 			struct { T r, g, b; };
-			struct { T s, t, p; };
 			T values[3];
 		};
 	};
@@ -94,7 +93,6 @@ namespace lm {
 		union {
 			struct { T x, y, z, w; };
 			struct { T r, g, b, a; };
-			struct { T s, t, p, q; };
 			T values[4];
 		};
 	};
@@ -147,6 +145,8 @@ namespace lm {
 	using vec3 = tvec3<float>;
 	using vec2 = tvec2<float>;
 	using quat = tquat<float>;
+
+	using ivec3 = tvec3<uint32_t>;
 }
 extern template struct lm::tmat4<float>;
 extern template struct lm::tvec4<float>;

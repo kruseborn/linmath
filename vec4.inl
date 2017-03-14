@@ -1,12 +1,8 @@
-//#include "linmath.h"
 namespace lm {
-
-
 template<typename T>
 T& tvec4<T>::operator[](int i) {
 	return values[i];
 }
-
 
 template<typename T>
 T const & tvec4<T>::operator[](int i) const {

@@ -152,7 +152,7 @@ tmat4<T> invert(tmat4<T> const &m) {
 
 	/* Assumes it is invertible */
 	auto idet = 1.0f / (s[0] * c[5] - s[1] * c[4] + s[2] * c[3] + s[3] * c[2] - s[4] * c[1] + s[5] * c[0]);
-
+	
 	res[0][0] = (m[1][1] * c[5] - m[1][2] * c[4] + m[1][3] * c[3]) * idet;
 	res[0][1] = (-m[0][1] * c[5] + m[0][2] * c[4] - m[0][3] * c[3]) * idet;
 	res[0][2] = (m[3][1] * s[5] - m[3][2] * s[4] + m[3][3] * s[3]) * idet;
@@ -245,7 +245,7 @@ tmat4<T> rotateZ(tmat4<T> const & M, T angle) {
 
 template<typename T>
 tmat4<T> orthoLH(T left, T right, T bottom, T top, T zNear, T zFar) {
-	tmat4<T> Result = mat4_identity();
+	tmat4<T> Result = mat4_identity<T>();
 	Result[0][0] = 2.0f / (right - left);
 	Result[1][1] = 2.0f / (top - bottom);
 	Result[3][0] = -(right + left) / (right - left);
@@ -264,7 +264,7 @@ tmat4<T> orthoLH(T left, T right, T bottom, T top, T zNear, T zFar) {
 
 template<typename T>
 tmat4<T> orthoRH(T left, T right,T bottom, T top, T zNear, T zFar) {
-	tmat4<T> Result = mat4_identity();
+	tmat4<T> Result = mat4_identity<T>();
 	Result[0][0] = 2.0f / (right - left);
 	Result[1][1] = 2.0f / (top - bottom);
 	Result[3][0] = -(right + left) / (right - left);
@@ -303,8 +303,8 @@ tmat4<T> perspectiveRH(T fovy, T aspect, T zNear, T zFar) {
 	assert(std::abs(aspect - std::numeric_limits<T>::epsilon()) > static_cast<T>(0));
 
 	T const tanHalfFovy = tan(fovy / 2.0f);
-
-	tmat4<T> Result = {};
+	
+    tmat4<T> Result = {};
 	Result[0][0] = 1.0f / (aspect * tanHalfFovy);
 	Result[1][1] = 1.0f / (tanHalfFovy);
 	Result[2][3] = -1.0f;
@@ -322,24 +322,23 @@ tmat4<T> perspectiveRH(T fovy, T aspect, T zNear, T zFar) {
 
 template<typename T>
 tmat4<T> perspectiveLH(T fovy, T aspect, T zNear, T zFar) {
-	assert(std::abs(aspect - std::numeric_limits<T>::epsilon()) > static_cast<T>(0));
+    assert(std::abs(aspect - std::numeric_limits<T>::epsilon()) > static_cast<T>(0));
+    T const tanHalfFovy = tan(fovy / static_cast<T>(2));
 
-	T const tanHalfFovy = tan(fovy / 2.0f);
-
-	tmat4<T> Result = {};
-	Result[0][0] = 1.0f / (aspect * tanHalfFovy);
-	Result[1][1] = 1.0f / (tanHalfFovy);
-	Result[2][3] = 1.0f;
+    tmat4<T> Result = {};
+    Result[0][0] = static_cast<T>(1) / (aspect * tanHalfFovy);
+    Result[1][1] = static_cast<T>(1) / (tanHalfFovy);
+    Result[2][3] = static_cast<T>(1);
 
 #		if DEPTH_CLIP_SPACE == DEPTH_ZERO_TO_ONE
-	Result[2][2] = zFar / (zFar - zNear);
-	Result[3][2] = -(zFar * zNear) / (zFar - zNear);
+    Result[2][2] = zFar / (zFar - zNear);
+    Result[3][2] = -(zFar * zNear) / (zFar - zNear);
 #		else
-	Result[2][2] = (zFar + zNear) / (zFar - zNear);
-	Result[3][2] = -(2.0f * zFar * zNear) / (zFar - zNear);
+    Result[2][2] = (zFar + zNear) / (zFar - zNear);
+    Result[3][2] = -(static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
 #		endif
 
-	return Result;
+    return Result;
 }
 
 template<typename T>
@@ -348,7 +347,7 @@ tmat4<T> lookAtRH(tvec3<T> const & eye, tvec3<T> const & center, tvec3<T> const 
 	tvec3<T> const s(normalize(cross(f, up)));
 	tvec3<T> const u(cross(s, f));
 
-	tmat4<T> Result = mat4_identity();
+	tmat4<T> Result = mat4_identity<T>();
 	Result[0][0] = s.x;
 	Result[1][0] = s.y;
 	Result[2][0] = s.z;
@@ -370,7 +369,7 @@ tmat4<T> lookAtLH(tvec3<T> const & eye, tvec3<T> const & center, tvec3<T> const 
 	tvec3<T> const s(normalize(cross(up, f)));
 	tvec3<T> const u(cross(f, s));
 
-	tmat4<T> Result = mat4_identity();
+	tmat4<T> Result = mat4_identity<T>();
 	Result[0][0] = s.x;
 	Result[1][0] = s.y;
 	Result[2][0] = s.z;
@@ -551,4 +550,9 @@ tmat4<T> toMatrix(tquat<T> const &q) {
 	M[3][3] = 1.f;
 	return M;
 }
+
+template<typename T> T radians(T degrees) {
+    return degrees * static_cast<T>(0.01745329251994329576923690768489);
+}
+
 } //lm
