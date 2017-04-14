@@ -111,7 +111,7 @@ namespace lm {
 		tmat4 operator*(T scalar) const;
 		tvec4<T> operator*(tvec4<T> const & v) const;
 
-		tmat4 & operator+=(tmat4 const & m);
+		//tmat4 & operator+=(tmat4 const & m);
 		tmat4 & operator-=(tmat4 const & m);
 		tmat4 & operator*=(tmat4 const & m);
 
